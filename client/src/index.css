@@ -1,0 +1,30 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+/* @layer base {
+  html {
+		@apply w-[100%] box-border h-[100%] text-[62.5%] scroll-smooth
+  }
+  body {
+		@apply max-h-[100%] min-h-[100%] h-[100%] text-[1rem]		
+  }	
+	h2 {
+		@apply text-[2rem] pt-[10rem] pb-[1rem] font-normal text-center mb-[30%]
+	}
+	#root {
+		@apply w-full mx-auto h-screen overflow-hidden h-full
+	}
+	input {
+		@apply rounded pl-2 focus:outline-none border-2 placeholder:text-[1.2rem]  text-[1.2rem] h-[3rem]  placeholder:pl-1 border-0
+	}
+}
+
+::-webkit-scrollbar-thumb {
+	@apply bg-[#d3d4d4]
+}
+::-webkit-scrollbar-thumb:hover {
+	@apply bg-[#a5a4a4]
+}
+::-webkit-scrollbar {
+	@apply w-[6px]
+} */
