@@ -5,9 +5,5 @@ services:
     buildCommand: npm run build
     startCommand: npm start
     envVars:
-      - key: NODE_ENV
-        value: production
-      - key: MY_SECRET_KEY
-        generateValue: true
-      - key: PORT
-        value: 10000
+      - key: NPM_CONFIG_PRODUCTION
+        value: false
