@@ -73,9 +73,12 @@ const deleteItem = function (todo_id, user_id, callback) {
 app.get("/", (req, res) => {
 	const authHeader = req.header('Authorization')
 	if (!authHeader) {
+		if (process.env.NODE_ENV === 'production') {
+			const clientPath = path.join(__dirname, '../client/dist')
+			return res.sendFile(path.join(clientPath, 'index.html'))
+		}
 		return res.status(401).json({ error: 'No token provided', login: false })
 	}
-
 	const token = authHeader.replace('Bearer ', '')
 
 	try {

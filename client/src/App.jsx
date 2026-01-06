@@ -20,43 +20,42 @@ function App() {
 	const [msgReg, setMsgReg] = useState('')
 	const navigate = useNavigate()
 
-useEffect(() => {
+	useEffect(() => {
   const token = localStorage.getItem('token')
-  
   if (token) {
     handleToken()
   } else {
-    // Если нет токена, показываем страницу логина
     setIsAuthenticated(false)
+    navigate('/login', { replace: true }) // ← ДОБАВЬТЕ
   }
 }, [])
 
-const handleToken = () => {
-  const token = localStorage.getItem('token')
-  if (token) {
-    // Только если есть токен, проверяем его
-    api
-      .checkToken(token)
-      .then((res) => {
-        if (res.login == true) {
-          setIsAuthenticated(res.login)
-          setDataForm(res.data)
-          setTodos(res.todos.reverse())
-          localStorage.setItem('user', JSON.stringify({ name: res.data.name, email: res.data.email }))
-          navigate('/', { replace: true })
-        }
-        else {
-          navigate('/login', { replace: true })
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        navigate('/login', { replace: true }) 
-      })
-  } else {
-    navigate('/login', { replace: true }) 
-  }
-}
+	const handleToken = () => {
+		const token = localStorage.getItem('token')
+		if (token) {
+			// Только если есть токен, проверяем его
+			api
+				.checkToken(token)
+				.then((res) => {
+					if (res.login == true) {
+						setIsAuthenticated(res.login)
+						setDataForm(res.data)
+						setTodos(res.todos ? res.todos.reverse() : [])
+						localStorage.setItem('user', JSON.stringify({ name: res.data.name, email: res.data.email }))
+						navigate('/', { replace: true })
+					}
+					else {
+						navigate('/login', { replace: true })
+					}
+				})
+				.catch(err => {
+					console.log(err)
+					navigate('/login', { replace: true }) // При ошибке переходим на логин
+				})
+		} else {
+			navigate('/login', { replace: true }) // Если нет токена, сразу на логин
+		}
+	}
 
 	const login = (values) => {
 		const { email, pass } = values
@@ -87,7 +86,7 @@ const handleToken = () => {
 				if (res.msg === 'The user with this email address is registered') {
 					return setMsgReg(res.msg)
 				} else if (res.msg === "signup successful")
-					localStorage.setItem('token', res.jwt)
+					// localStorage.setItem('token', res.jwt)
 				setIsAuthenticated(res.login)
 				navigate('/login', { replace: true })
 				setDataForm(res.data)
@@ -145,7 +144,7 @@ const handleToken = () => {
 	}
 
 	return (
-		<div className="w-full h-full"> 
+		<div className="w-full h-full">
 			<Routes>
 				<Route path="/login"
 					element={
