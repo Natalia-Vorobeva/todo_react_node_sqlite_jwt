@@ -1,22 +1,16 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js ",
-    "server": "node index.js && node db.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
-    "nodemon": "^3.1.10",
-    "sqlite3": "^5.1.7",
-    "sqlite3-admin": "^0.0.3"
+    "sqlite3": "^5.1.7"
   }
 }

@@ -6,10 +6,16 @@ const jwt = require("jsonwebtoken")
 const app = express()
 const port = process.env.PORT || 3000
 const sqlite3 = require('sqlite3').verbose()
+const path = require('path') // Добавлено для деплоя
+const fs = require('fs') // Добавлено для деплоя
 app.use(express.json())
 app.use(cors())
 app.use(express.json())
-const db = new sqlite3.Database('todolist.db')
+
+// Изменено: В production используем /tmp для сохранения БД между деплоями
+const dbPath = process.env.NODE_ENV === 'production' ? '/tmp/todolist.db' : 'todolist.db'
+const db = new sqlite3.Database(dbPath)
+
 const s = `
 		    CREATE TABLE IF NOT EXISTS users(
 		      user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -231,7 +237,38 @@ app.post("/update", (req, res) => {
 	)
 })
 
+// Добавлено для деплоя: Раздача статики React в production
+if (process.env.NODE_ENV === 'production') {
+  const clientPath = path.join(__dirname, '../client/dist');
+  
+  // Проверяем, существует ли собранный React
+  if (fs.existsSync(clientPath)) {
+    app.use(express.static(clientPath));
+    
+    // Все маршруты, не начинающиеся с /api, отдаём index.html
+    app.get('*', (req, res, next) => {
+      // Пропускаем API маршруты
+      if (req.path.startsWith('/')) {
+        const isApiRoute = 
+          req.path === '/' || 
+          req.path === '/register' || 
+          req.path === '/login' || 
+          req.path === '/new' || 
+          req.path === '/delete' || 
+          req.path === '/update';
+        
+        if (!isApiRoute) {
+          res.sendFile(path.join(clientPath, 'index.html'));
+        } else {
+          next();
+        }
+      }
+    });
+  } else {
+    console.log('⚠️  Client build not found at:', clientPath);
+  }
+}
+
 app.listen(port, () => {
-	console.log(`Server is running : 
-    http://localhost:${port}/`)
+	console.log(`Server is running on port ${port} in ${process.env.NODE_ENV || 'development'} mode`)
 })

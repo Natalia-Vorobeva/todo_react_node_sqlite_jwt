@@ -67,7 +67,7 @@ function TodoList({ logout, data, getTodo, todos, deleteItem, updateItem }) {
         {todos?.length === 0 ? (
             <div className="py-10 text-center">
                 <p className="text-cyan-600 font-medium">Нет задач. Добавьте первую!</p>
-                <p className="text-cyan-400 text-sm mt-1">Используйте форму справа</p>
+                <p className="text-cyan-400 text-sm mt-1">Используйте форму</p>
             </div>
         ) : (
             todos?.map((item, index) => {
