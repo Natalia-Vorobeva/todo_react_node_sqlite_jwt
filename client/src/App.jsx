@@ -59,6 +59,12 @@ function App() {
 
 	const login = (values) => {
 		const { email, pass } = values
+  
+  // Демо1-аккаунт для быстрого доступа
+  if (email === 'demo@example.com' && pass === 'demo123') {
+    // Для демо сразу переходим на обычную авторизацию
+    // Это позволит увидеть реальную работу с БД
+  }
 		const token = localStorage.getItem('token')
 		api
 			.authorize(email, pass, token ? token : '')
