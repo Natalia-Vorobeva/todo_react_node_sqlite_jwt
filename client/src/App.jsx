@@ -20,13 +20,33 @@ function App() {
 	const [msgReg, setMsgReg] = useState('')
 	const navigate = useNavigate()
 
-	useEffect(() => {
+useEffect(() => {
   const token = localStorage.getItem('token')
   if (token) {
-    handleToken()
+    api.checkToken(token)
+      .then((res) => {
+        if (res.login === true) {
+          setIsAuthenticated(true)
+          setDataForm(res.data)
+          setTodos(res.todos ? res.todos.reverse() : [])
+          localStorage.setItem('user', JSON.stringify({ 
+            name: res.data.name, 
+            email: res.data.email 
+          }))
+          // Не нужно navigate, мы уже на главной
+        } else {
+          setIsAuthenticated(false)
+          navigate('/login', { replace: true })
+        }
+      })
+      .catch(err => {
+        console.log('Token check failed:', err)
+        setIsAuthenticated(false)
+        navigate('/login', { replace: true })
+      })
   } else {
     setIsAuthenticated(false)
-    navigate('/login', { replace: true }) // ← ДОБАВЬТЕ
+    navigate('/login', { replace: true })
   }
 }, [])
 

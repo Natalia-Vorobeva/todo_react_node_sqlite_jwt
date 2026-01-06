@@ -208,6 +208,15 @@ const deleteItem = function (todo_id, user_id, callback) {
   )
 }
 
+if (process.env.NODE_ENV === 'production') {
+  const clientPath = path.join(__dirname, '../client/dist')
+  
+  if (fs.existsSync(clientPath)) {
+    console.log('Serving static files from:', clientPath)
+    app.use(express.static(clientPath))
+  }
+}
+
 // API эндпоинты (оставляем без изменений, как у вас)
 app.get("/", (req, res) => {
   const authHeader = req.header('Authorization')
@@ -441,28 +450,35 @@ app.post("/update", (req, res) => {
   )
 })
 
-// Раздача статики React в production
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+  })
+}
+
+// Раздача статики React в production ДО API маршрутов
 if (process.env.NODE_ENV === 'production') {
   const clientPath = path.join(__dirname, '../client/dist')
   
   if (fs.existsSync(clientPath)) {
     console.log('Serving static files from:', clientPath)
+    
+    // 1. Сначала отдаем статические файлы
     app.use(express.static(clientPath))
     
+    // 2. Для всех GET запросов, не являющихся API, отдаем index.html
     app.get('*', (req, res, next) => {
-      const isApiRoute = 
-        req.path === '/' || 
-        req.path === '/register' || 
-        req.path === '/login' || 
-        req.path === '/new' || 
-        req.path === '/delete' || 
-        req.path === '/update'
-      
-      if (!isApiRoute) {
-        res.sendFile(path.join(clientPath, 'index.html'))
-      } else {
-        next()
+      // Если это не API маршрут и запрос GET
+      if (req.method === 'GET' && 
+          !req.path.startsWith('/api') && 
+          req.path !== '/register' && 
+          req.path !== '/login' && 
+          req.path !== '/new' && 
+          req.path !== '/delete' && 
+          req.path !== '/update') {
+        return res.sendFile(path.join(clientPath, 'index.html'))
       }
+      next()
     })
   } else {
     console.log('⚠️ Client build not found at:', clientPath)
