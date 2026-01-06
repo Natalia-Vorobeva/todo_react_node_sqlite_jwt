@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "npm run build:client && npm run build:server",
-    "build:client": "cd client && npm install --production=false && npm run build",
+   "build": "npm run build:client && npm run build:server",
+    "build:client": "cd client && npm install --include=dev && npm run build",
     "build:server": "cd server && npm install",
     "start": "node server/index.js",
     "render-postbuild": "npm run build"
-  },
-  "dependencies": {
-    "dotenv": "^17.2.3"
   },
   "engines": {
     "node": ">=18.0.0"
