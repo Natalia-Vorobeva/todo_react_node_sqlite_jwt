@@ -20,34 +20,43 @@ function App() {
 	const [msgReg, setMsgReg] = useState('')
 	const navigate = useNavigate()
 
-	useEffect(() => {
-		handleToken()
-	}, [])
+useEffect(() => {
+  const token = localStorage.getItem('token')
+  
+  if (token) {
+    handleToken()
+  } else {
+    // Если нет токена, показываем страницу логина
+    setIsAuthenticated(false)
+  }
+}, [])
 
-	const handleToken = () => {
-		const token = localStorage.getItem('token')
-		if (token) {
-			api
-				.checkToken(token)
-				.then((res) => {
-					if (res.login == true) {
-						setIsAuthenticated(res.login)
-						setDataForm(res.data)
-						setTodos(res.todos.reverse())
-						localStorage.setItem('user', JSON.stringify({ name: res.data.name, email: res.data.email }))
-						navigate('/', { replace: true })
-					}
-					else {
-						navigate('/login', { replace: true })
-					}
-				})
-				.catch(err => {
-					console.log(err)
-				})
-		} else {
-			navigate('/login', { replace: true })
-		}
-	}
+const handleToken = () => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    // Только если есть токен, проверяем его
+    api
+      .checkToken(token)
+      .then((res) => {
+        if (res.login == true) {
+          setIsAuthenticated(res.login)
+          setDataForm(res.data)
+          setTodos(res.todos.reverse())
+          localStorage.setItem('user', JSON.stringify({ name: res.data.name, email: res.data.email }))
+          navigate('/', { replace: true })
+        }
+        else {
+          navigate('/login', { replace: true })
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        navigate('/login', { replace: true }) 
+      })
+  } else {
+    navigate('/login', { replace: true }) 
+  }
+}
 
 	const login = (values) => {
 		const { email, pass } = values
