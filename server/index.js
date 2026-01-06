@@ -13,6 +13,11 @@ const MY_SECRET_KEY = process.env.MY_SECRET_KEY || "default_dev_secret_key_12345
 app.use(express.json())
 app.use(cors())
 
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - Authorization: ${req.headers.authorization ? 'present' : 'missing'}`)
+  next()
+})
+
 // ВАЖНО: На Render.com используем /tmp для сохранения БД между перезапусками
 const dbPath = process.env.NODE_ENV === 'production' 
   ? '/tmp/todolist.db'  // На Render - сохраняем в /tmp
@@ -218,7 +223,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // API эндпоинты (оставляем без изменений, как у вас)
-app.get("/", (req, res) => {
+app.get("/api/check-token", (req, res) => {
   const authHeader = req.header('Authorization')
   
   if (!authHeader) {
@@ -264,7 +269,7 @@ app.get("/", (req, res) => {
   }
 })
 
-app.post("/register", (req, res) => {
+app.post("/api/register", (req, res) => {
   const reqBody = req.body
   selectUsers(req.body.email, function (err, row) {
     if (err) {
@@ -298,7 +303,7 @@ app.post("/register", (req, res) => {
   })
 })
 
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
   const email = req.body.email
   const pass = req.body.pass
   const token = req.body.token
@@ -377,7 +382,7 @@ app.post("/login", (req, res) => {
   }
 })
 
-app.post("/new", (req, res) => {
+app.post("/api/new", (req, res) => {
   selectUsers(req.body.email, function (err, row) {
     if (err) {
       console.error(err)
@@ -408,7 +413,7 @@ app.post("/new", (req, res) => {
   })
 })
 
-app.post("/delete", (req, res) => {
+app.post("/api/delete", (req, res) => {
   deleteItem(req.body.todo_id, req.body.user_id, function (err) {
     if (err) {
       console.error(err)
@@ -428,7 +433,7 @@ app.post("/delete", (req, res) => {
   })
 })
 
-app.post("/update", (req, res) => {
+app.post("/api/update", (req, res) => {
   updateItem(req.body.item.todo_id, req.body.item.user_id, req.body.item.completed,
     function (err) {
       if (err) {
@@ -450,38 +455,20 @@ app.post("/update", (req, res) => {
   )
 })
 
-if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'))
-  })
-}
-
-// Раздача статики React в production ДО API маршрутов
+// Раздача статики React В КОНЦЕ
 if (process.env.NODE_ENV === 'production') {
   const clientPath = path.join(__dirname, '../client/dist')
   
   if (fs.existsSync(clientPath)) {
     console.log('Serving static files from:', clientPath)
     
-    // 1. Сначала отдаем статические файлы
+    // Сначала пытаемся найти статический файл
     app.use(express.static(clientPath))
     
-    // 2. Для всех GET запросов, не являющихся API, отдаем index.html
-    app.get('*', (req, res, next) => {
-      // Если это не API маршрут и запрос GET
-      if (req.method === 'GET' && 
-          !req.path.startsWith('/api') && 
-          req.path !== '/register' && 
-          req.path !== '/login' && 
-          req.path !== '/new' && 
-          req.path !== '/delete' && 
-          req.path !== '/update') {
-        return res.sendFile(path.join(clientPath, 'index.html'))
-      }
-      next()
+    // Все остальные GET запросы отдаем index.html (SPA)
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(clientPath, 'index.html'))
     })
-  } else {
-    console.log('⚠️ Client build not found at:', clientPath)
   }
 }
 

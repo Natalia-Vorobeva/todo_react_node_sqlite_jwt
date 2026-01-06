@@ -22,8 +22,20 @@ function App() {
 
 useEffect(() => {
   const token = localStorage.getItem('token')
+  
   if (token) {
-    api.checkToken(token)
+    handleToken()
+  } else {
+    setIsAuthenticated(false)
+    navigate('/login', { replace: true })
+  }
+}, [])
+
+const handleToken = () => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    api
+      .checkToken(token)
       .then((res) => {
         if (res.login === true) {
           setIsAuthenticated(true)
@@ -33,49 +45,24 @@ useEffect(() => {
             name: res.data.name, 
             email: res.data.email 
           }))
-          // Не нужно navigate, мы уже на главной
+          // НЕ ВЫЗЫВАЙТЕ navigate здесь - мы уже на нужной странице
         } else {
           setIsAuthenticated(false)
           navigate('/login', { replace: true })
         }
       })
       .catch(err => {
-        console.log('Token check failed:', err)
+        console.log('Token check error:', err)
         setIsAuthenticated(false)
+        localStorage.removeItem('token')
+        localStorage.removeItem('user')
         navigate('/login', { replace: true })
       })
   } else {
     setIsAuthenticated(false)
     navigate('/login', { replace: true })
   }
-}, [])
-
-	const handleToken = () => {
-		const token = localStorage.getItem('token')
-		if (token) {
-			// Только если есть токен, проверяем его
-			api
-				.checkToken(token)
-				.then((res) => {
-					if (res.login == true) {
-						setIsAuthenticated(res.login)
-						setDataForm(res.data)
-						setTodos(res.todos ? res.todos.reverse() : [])
-						localStorage.setItem('user', JSON.stringify({ name: res.data.name, email: res.data.email }))
-						navigate('/', { replace: true })
-					}
-					else {
-						navigate('/login', { replace: true })
-					}
-				})
-				.catch(err => {
-					console.log(err)
-					navigate('/login', { replace: true }) // При ошибке переходим на логин
-				})
-		} else {
-			navigate('/login', { replace: true }) // Если нет токена, сразу на логин
-		}
-	}
+}
 
 	const login = (values) => {
 		const { email, pass } = values

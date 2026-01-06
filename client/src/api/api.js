@@ -1,14 +1,12 @@
-// Динамический BASE_URL для dev/production
-export const BASE_URL = window.location.hostname === 'localhost' 
-  ? 'http://localhost:3000' 
-  : ''
+// Используем относительные пути для production
+const API_BASE = ''
 
 const checkResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
 }
 
 export const getItemTodos = async (email, title, text) => {
-  const res = await fetch(`${BASE_URL}/new`, {
+  const res = await fetch(`${API_BASE}/api/new`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -22,7 +20,7 @@ export const getItemTodos = async (email, title, text) => {
 }
 
 export const deleteItem = async (todo_id, user_id) => {
-  const res = await fetch(`${BASE_URL}/delete`, {
+  const res = await fetch(`${API_BASE}/api/delete`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -36,7 +34,7 @@ export const deleteItem = async (todo_id, user_id) => {
 }
 
 export const updateItem = async (item) => {
-  const res = await fetch(`${BASE_URL}/update`, {
+  const res = await fetch(`${API_BASE}/api/update`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -50,7 +48,7 @@ export const updateItem = async (item) => {
 }
 
 export const register = async (name, email, pass) => {
-  const res = await fetch(`${BASE_URL}/register`, {
+  const res = await fetch(`${API_BASE}/api/register`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -64,7 +62,7 @@ export const register = async (name, email, pass) => {
 }
 
 export const authorize = async (email, pass, token) => {
-  const res = await fetch(`${BASE_URL}/login`, {
+  const res = await fetch(`${API_BASE}/api/login`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -78,7 +76,7 @@ export const authorize = async (email, pass, token) => {
 }
 
 export const checkToken = async (token) => {
-  const res = await fetch(`${BASE_URL}/`, {
+  const res = await fetch(`${API_BASE}/api/check-token`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
