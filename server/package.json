@@ -1,12 +1,18 @@
 {
-  "name": "todo-app-fullstack",
+  "name": "server",
   "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "build": "cd client && npm install && npm run build",
-    "start": "node server/index.js",
-    "render-postbuild": "cd client && npm install && npm run build"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
