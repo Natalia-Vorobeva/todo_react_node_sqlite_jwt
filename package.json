@@ -8,5 +8,8 @@
 		"start": "concurrently \"cd ./server && node db.js && npm run server && cd ..\" \"cd ./client && npm run dev\"",
 		"build": "npm run build --prefix client",
 		"predeploy": "npm run build"
+	},
+	"devDependencies": {
+		"gh-pages": "^6.3.0"
 	}
 }

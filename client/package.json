@@ -10,7 +10,7 @@
     "preview": "vite preview",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d dist",
-		"vercel-deploy": "vercel --name sugar-lux-site --prod"
+		"vercel-deploy": "vercel --name todo_react_node_sqlite_jwt --prod"
   },
   "dependencies": {
     "react": "^19.1.1",
