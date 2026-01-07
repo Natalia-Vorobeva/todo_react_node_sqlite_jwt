@@ -1,4 +1,3 @@
-// Header.jsx
 function Header({ handleLogout }) {
 	return (
 		<header className="sticky top-0 z-10 bg-gradient-to-r from-violet-600 to-purple-700 shadow-xl">

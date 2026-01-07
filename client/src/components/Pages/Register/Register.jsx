@@ -27,9 +27,7 @@ function Register({ register, msgReg }) {
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-indigo-50 flex items-center justify-center p-4">
 			<div className="w-full max-w-md transform hover:scale-[1.02] transition-all duration-500">
-				{/* Карточка регистрации */}
-				<div className="bg-gradient-to-br from-white to-cyan-50 rounded-3xl border-2 border-cyan-200 shadow-2xl overflow-hidden">
-					{/* Заголовок с градиентом */}
+				<div className="bg-gradient-to-br from-white to-cyan-50 rounded-3xl border-2 border-cyan-200 shadow-2xl overflow-hidden">			
 					<div className="px-8 py-6 bg-gradient-to-r from-violet-600 to-purple-700">
 						<div className="flex items-center justify-center gap-3 mb-2">
 							<div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
@@ -41,8 +39,7 @@ function Register({ register, msgReg }) {
 						</div>
 						<p className="text-center text-violet-100 text-sm">Присоединяйтесь к TaskFlow</p>
 					</div>
-
-					{/* Форма */}
+					
 					<div className="px-8 py-6">
 						<Form id="register" onSubmit={handleSubmit}>
 							<div className="space-y-5">

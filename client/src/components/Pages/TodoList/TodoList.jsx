@@ -23,7 +23,6 @@ function TodoList({ logout, data, getTodo, todos, deleteItem, updateItem }) {
 
 	return (
 		<div className="flex flex-col bg-gradient-to-br from-cyan-50 via-white to-indigo-50 overflow-auto">
-			{/* Header с тем же контейнером, что и основной контент */}
 			<div className="container mx-auto px-4 max-w-6xl w-full">
 				<Header data={data} handleLogout={handleLogout} />
 			</div>
@@ -61,26 +60,25 @@ function TodoList({ logout, data, getTodo, todos, deleteItem, updateItem }) {
 								</h2>
 							</div>
 
-							{/* Контейнер списка с зеленым скроллом */}
 							<div className="overflow-y-auto flex-1 min-h-0 bg-gradient-to-b from-white to-cyan-50/20 scrollbar-thin scrollbar-thumb-cyan-300 scrollbar-track-cyan-50 hover:scrollbar-thumb-cyan-400">
-    <ol ref={ref} className="px-4 py-2">
-        {todos?.length === 0 ? (
-            <div className="py-10 text-center">
-                <p className="text-cyan-600 font-medium">Нет задач. Добавьте первую!</p>
-                <p className="text-cyan-400 text-sm mt-1">Используйте форму</p>
-            </div>
-        ) : (
-            todos?.map((item, index) => {
-                return <Card
-                    key={`${item.id || index}`}
-                    item={item}
-                    handleDelete={handleDelete}
-                    handleCompleted={handleCompleted}
-                />
-            })
-        )}
-    </ol>
-</div>
+								<ol ref={ref} className="px-4 py-2">
+									{todos?.length === 0 ? (
+										<div className="py-10 text-center">
+											<p className="text-cyan-600 font-medium">Нет задач. Добавьте первую!</p>
+											<p className="text-cyan-400 text-sm mt-1">Используйте форму</p>
+										</div>
+									) : (
+										todos?.map((item, index) => {
+											return <Card
+												key={`${item.id || index}`}
+												item={item}
+												handleDelete={handleDelete}
+												handleCompleted={handleCompleted}
+											/>
+										})
+									)}
+								</ol>
+							</div>
 						</div>
 					</div>
 

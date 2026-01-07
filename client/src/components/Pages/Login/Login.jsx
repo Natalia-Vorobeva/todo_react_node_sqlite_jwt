@@ -14,9 +14,7 @@ const Login = ({ login, msg }) => {
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-indigo-50 flex items-center justify-center p-4">
 			<div className="w-full max-w-md transform hover:scale-[1.02] transition-all duration-500">
-				{/* Карточка входа */}
 				<div className="bg-gradient-to-br from-white to-cyan-50 rounded-3xl border-2 border-cyan-200 shadow-2xl overflow-hidden">
-					{/* Заголовок с градиентом */}
 					<div className="px-8 py-6 bg-gradient-to-r from-blue-600 to-cyan-500">
 						<div className="flex items-center justify-center gap-3 mb-2">
 							<div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -29,7 +27,6 @@ const Login = ({ login, msg }) => {
 						<p className="text-center text-cyan-100 text-sm">Добро пожаловать в TaskFlow</p>
 					</div>
 
-					{/* Форма */}
 					<div className="px-8 py-6">
 						<Form id="login" onSubmit={handleSubmit}>
 							<div className="space-y-5">
@@ -103,16 +100,6 @@ const Login = ({ login, msg }) => {
 								</p>
 							</div>
 						)}
-
-						{/* Быстрая подсказка */}
-						<div className="mt-6 p-3 bg-gradient-to-r from-emerald-100/50 to-green-100/50 rounded-xl border border-emerald-200">
-							<p className="text-xs text-emerald-700 flex items-center gap-2">
-								<svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-								Используйте тестовый аккаунт: test@test.com / 1234
-							</p>
-						</div>
 					</div>
 				</div>
 

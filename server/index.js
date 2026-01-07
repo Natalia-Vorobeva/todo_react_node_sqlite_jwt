@@ -7,7 +7,6 @@ const sqlite3 = require('sqlite3').verbose()
 const path = require('path')
 const fs = require('fs')
 
-// Используйте секрет из переменных окружения или дефолтный для разработки
 const MY_SECRET_KEY = process.env.MY_SECRET_KEY || "default_dev_secret_key_1234567890"
 
 app.use(express.json())
@@ -18,14 +17,10 @@ app.use((req, res, next) => {
   next()
 })
 
-// ВАЖНО: На Render.com используем /tmp для сохранения БД между перезапусками
 const dbPath = process.env.NODE_ENV === 'production' 
-  ? '/tmp/todolist.db'  // На Render - сохраняем в /tmp
-  : 'todolist.db'       // Локально - в текущей папке
+  ? '/tmp/todolist.db' 
+  : 'todolist.db'  
 
-console.log(`Database path: ${dbPath}`)
-
-// Проверяем, существует ли файл БД (для логирования)
 if (process.env.NODE_ENV === 'production') {
   fs.access(dbPath, fs.constants.F_OK, (err) => {
     if (err) {
@@ -42,7 +37,6 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CR
   } else {
     console.log('Connected to SQLite database at:', dbPath)
     
-    // Включаем поддержку внешних ключей
     db.run('PRAGMA foreign_keys = ON', (err) => {
       if (err) {
         console.error('Error enabling foreign keys:', err.message)
@@ -54,7 +48,6 @@ const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CR
   }
 })
 
-// Создание таблиц с улучшенной обработкой ошибок
 const createTables = () => {
   return new Promise((resolve, reject) => {
     // Таблица пользователей
@@ -96,9 +89,7 @@ const createTables = () => {
             reject(err)
             return
           }
-          console.log('Todos table ready')
           
-          // Добавляем демо-данные только если таблицы пустые
           addDemoDataIfNeeded().then(() => {
             console.log('Database initialization complete')
             resolve()
@@ -109,10 +100,8 @@ const createTables = () => {
   })
 }
 
-// Добавляем демо-данные только при первом запуске
 const addDemoDataIfNeeded = () => {
   return new Promise((resolve, reject) => {
-    // Проверяем, есть ли уже пользователи
     db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
       if (err) {
         console.error('Error checking users count:', err.message)
@@ -120,10 +109,7 @@ const addDemoDataIfNeeded = () => {
         return
       }
       
-      if (row.count === 0) {
-        console.log('Adding demo data...')
-        
-        // Добавляем демо-пользователя
+      if (row.count === 0) {      
         db.run(
           `INSERT INTO users (first_name, email, pass) VALUES (?, ?, ?)`,
           ['Demo User', 'demo@example.com', 'demo123'],
@@ -134,10 +120,7 @@ const addDemoDataIfNeeded = () => {
               return
             }
             
-            const userId = this.lastID
-            console.log(`Demo user created with ID: ${userId}`)
-            
-            // Добавляем демо-задачи
+            const userId = this.lastID           
             const demoQueries = [
               `INSERT INTO todos (user_id, title, text, completed) VALUES (?, 'Первая задача', 'Это пример задачи', 0)`,
               `INSERT INTO todos (user_id, title, text, completed) VALUES (?, 'Выполненная задача', 'Эта задача выполнена', 1)`,
@@ -153,11 +136,9 @@ const addDemoDataIfNeeded = () => {
                   console.error(`Error adding demo task ${index + 1}:`, err.message)
                 } else {
                   completed++
-                  console.log(`Added demo task ${index + 1}/${total}`)
                 }
                 
                 if (completed === total) {
-                  console.log('Demo data added successfully')
                   resolve()
                 }
               })
@@ -165,7 +146,6 @@ const addDemoDataIfNeeded = () => {
           }
         )
       } else {
-        console.log(`Database already has ${row.count} users, skipping demo data`)
         resolve()
       }
     })
@@ -222,7 +202,6 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
-// API эндпоинты (оставляем без изменений, как у вас)
 app.get("/api/check-token", (req, res) => {
   const authHeader = req.header('Authorization')
   
@@ -455,7 +434,7 @@ app.post("/api/update", (req, res) => {
   )
 })
 
-// Раздача статики React В КОНЦЕ
+// Раздача статики React
 if (process.env.NODE_ENV === 'production') {
   const clientPath = path.join(__dirname, '../client/dist')
   

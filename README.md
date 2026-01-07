@@ -1,11 +1,5 @@
 # Todo List - Fullstack приложение
-
-<!-- <p align="center"> <strong>🌐 <a href="https://todo-react-node-sqlite_jwt.onrender.com">Живое демо</a></strong> • <strong>📁 <a href="https://github.com/Natalia-Vorobeva/todo_react_node_sqlite_jwt">Исходный код</a></strong> </p> <p align="center"> <sub><em>Примечание: Демо размещено на бесплатном хостинге Render.com.<br>При первом посещении после простоя серверу требуется 30-60 секунд для запуска.</em></sub> </p>
-
-
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white) -->
 ##
-
 
 <p align="center">
   <strong>🌐 <a href="https://todo-react-node-sqlite-jwt.onrender.com/">Живое демо</a></strong> • 
@@ -37,13 +31,6 @@
 ## Функционал
 Полнофункциональное веб-приложение для управления задачами с полным циклом аутентификации
 
-### 🔐 Аутентификация
-- Регистрация и авторизация (JWT)
-- Защищенные маршруты
-- Выход из системы
-
-
-### 📋 Управление задачами
 - CRUD операции с задачами
 - Отметка выполненных задач
 - Сортировка по дате

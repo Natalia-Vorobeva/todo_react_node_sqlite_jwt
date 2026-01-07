@@ -1,4 +1,3 @@
-// Используем относительные пути для production
 const API_BASE = ''
 
 const checkResponse = (res) => {

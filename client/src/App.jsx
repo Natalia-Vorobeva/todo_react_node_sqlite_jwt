@@ -45,7 +45,6 @@ const handleToken = () => {
             name: res.data.name, 
             email: res.data.email 
           }))
-          // НЕ ВЫЗЫВАЙТЕ navigate здесь - мы уже на нужной странице
         } else {
           setIsAuthenticated(false)
           navigate('/login', { replace: true })
@@ -65,13 +64,7 @@ const handleToken = () => {
 }
 
 	const login = (values) => {
-		const { email, pass } = values
-  
-  // Демо1-аккаунт для быстрого доступа
-  if (email === 'demo@example.com' && pass === 'demo123') {
-    // Для демо сразу переходим на обычную авторизацию
-    // Это позволит увидеть реальную работу с БД
-  }
+		const { email, pass } = values  
 		const token = localStorage.getItem('token')
 		api
 			.authorize(email, pass, token ? token : '')
@@ -99,7 +92,6 @@ const handleToken = () => {
 				if (res.msg === 'The user with this email address is registered') {
 					return setMsgReg(res.msg)
 				} else if (res.msg === "signup successful")
-					// localStorage.setItem('token', res.jwt)
 				setIsAuthenticated(res.login)
 				navigate('/login', { replace: true })
 				setDataForm(res.data)
