@@ -8,7 +8,7 @@
 
 
 <p align="center">
-  <strong>🌐 <a href="https://todo-react-node-sqlite_jwt.onrender.com">Живое демо</a></strong> • 
+  <strong>🌐 <a href="https://todo-react-node-sqlite-jwt.onrender.com/">Живое демо</a></strong> • 
   <strong>📁 <a href="https://github.com/Natalia-Vorobeva/todo_react_node_sqlite_jwt">Исходный код</a></strong>
 </p>
 <p align="center">
