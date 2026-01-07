@@ -1,13 +1,36 @@
 # Todo List - Fullstack приложение
 
-### Production Ready
-- 🌐 **Демо:** https://todo-react-node-sqlite_jwt.onrender.com
-- 📁 **Код:** https://github.com/Natalia-Vorobeva/todo_react_node_sqlite_jwt
-#### 
-#### 
+<!-- <p align="center"> <strong>🌐 <a href="https://todo-react-node-sqlite_jwt.onrender.com">Живое демо</a></strong> • <strong>📁 <a href="https://github.com/Natalia-Vorobeva/todo_react_node_sqlite_jwt">Исходный код</a></strong> </p> <p align="center"> <sub><em>Примечание: Демо размещено на бесплатном хостинге Render.com.<br>При первом посещении после простоя серверу требуется 30-60 секунд для запуска.</em></sub> </p>
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
+
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) ![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white) -->
 ##
+
+
+<p align="center">
+  <strong>🌐 <a href="https://todo-react-node-sqlite_jwt.onrender.com">Живое демо</a></strong> • 
+  <strong>📁 <a href="https://github.com/Natalia-Vorobeva/todo_react_node_sqlite_jwt">Исходный код</a></strong>
+</p>
+<p align="center">
+  <sub><em>Примечание: Демо размещено на бесплатном хостинге Render.com.<br>При первом посещении после простоя серверу требуется 30-60 секунд для запуска.</em></sub>
+</p>
+
+
+
+<p align="center">
+  <a href="https://todo-react-node-sqlite_jwt.onrender.com">
+    <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black" alt="JavaScript">
+  </a>
+  <a href="https://github.com/Natalia-Vorobeva/todo_react_node_sqlite_jwt">
+    <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white" alt="React">
+  </a>
+  <img src="https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/Express-5-000000?logo=express&logoColor=white" alt="Express">
+  <img src="https://img.shields.io/badge/SQLite-База_данных-003B57?logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/JWT-Аутентификация-000000?logo=jsonwebtokens&logoColor=white" alt="JWT">
+  <img src="https://img.shields.io/badge/Vite-Сборка-646CFF?logo=vite&logoColor=white" alt="Vite">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-Стили-38B2AC?logo=tailwindcss&logoColor=white" alt="Tailwind">
+</p>
 
 
 
@@ -54,6 +77,13 @@ project/
 - **Защита от SQL-инъекций** через параметризованные запросы
 - **CORS политики** для безопасности API
 
+## 🗄️ База данных
+- **Тип:** SQLite с файловым хранилищем
+- **Расположение на Render.com:** `/tmp/todolist.db`
+- **Особенности:** Данные сохраняются между перезапусками сервера
+- **Схема:** Две таблицы (users, todos) с внешними ключами
+- **Демо-данные:** Автоматически создаются при первом запуске
+
 
 ## 🚀 Локальный запуск
 ```bash
@@ -72,10 +102,5 @@ cd server && npm run dev
 # Терминал 2: Клиент
 cd client && npm run dev
 ```
-## 🗄️ База данных
-- **Тип:** SQLite с файловым хранилищем
-- **Расположение на Render.com:** `/tmp/todolist.db`
-- **Особенности:** Данные сохраняются между перезапусками сервера
-- **Схема:** Две таблицы (users, todos) с внешними ключами
-- **Демо-данные:** Автоматически создаются при первом запуске
+
 
